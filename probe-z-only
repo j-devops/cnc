@@ -1,0 +1,16 @@
+; Set user-defined variables 1/8 = 3.175 and 1/4 = 6.35
+%ENDMILL_DIAMETER = 6.35	;in millimeters
+
+%PROBE_BLOCK_Z = 5;Thickness of 3-axis probe in Z direction
+%PROBE_BLOCK_Y = 10 ;Thickness of 3-axis probe in Y direction
+%PROBE_BLOCK_X = 10 ;Thickness of 3-axis probe in X direction
+
+G21	;make sure we in mm
+G91 ;Incremental mode
+G38.2 Z-25 F75	;Probe Z
+G0 Z2	;lift 2mm
+G38.2 Z-25 F45	;Probe Z
+G4 P0.1
+G10 L20 P1 Z[PROBE_BLOCK_Z]	;Set Current Z as plate thickness
+G4 P0.1
+G0 Z3 ;lift Z 3mm
