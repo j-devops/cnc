@@ -1,0 +1,38 @@
+; Set user-defined variables 1/8 = 3.175 and 1/4 = 6.35
+%ENDMILL_DIAMETER = 6.35	;in millimeters
+
+%PROBE_BLOCK_Z = 5;Thickness of 3-axis probe in Z direction
+%PROBE_BLOCK_Y = 10 ;Thickness of 3-axis probe in Y direction
+%PROBE_BLOCK_X = 10 ;Thickness of 3-axis probe in X direction
+
+G21	;make sure we in mm
+G91 ;Incremental mode
+G38.2 Z-25 F75	;Probe Z
+G0 Z2	;lift 2mm
+G38.2 Z-25 F45	;Probe Z
+G4 P0.1
+G10 L20 P1 Z[PROBE_BLOCK_Z]	;Set Current Z as plate thickness
+G4 P0.1
+G0 Z3 ;lift Z 3mm
+G0 X-25	;Move left 25mm
+G0 Z-10	;Move down 10mm, should be 7mm below probe surface
+G38.2 X30 F75	;Probe X to the right 30mm
+G0 X-2
+G38.2 X30 F45	;Probe X to the right 30mm
+G4 P0.1
+G10 L20 P1 X[-ENDMILL_DIAMETER/2 -PROBE_BLOCK_X]	;Set current X location as negative half the bit diameter
+G4 P0.1
+G0 X-5	;Move left 20mm - changed
+G0 Y-35	;Move forward 35mm
+G90 G0 X5	;Move to X5 (absolute) - will put you 5mm to the right of left edge of stock
+G91 ;incremental
+G38.2 Y30 F75	;Probe Y
+G0 Y-2
+G38.2 Y30 F45	;Probe Y
+G4 P0.1
+G10 L20 P1 Y[-ENDMILL_DIAMETER/2 -PROBE_BLOCK_Y]	;Set current Y location as negative half the bit diameter - 7mm thickness
+G4 P0.1
+G0 Y-10	;Move Y-10
+G0 Z10	;Move Z up 10mm, should be 8mm above probe plate
+G90
+G0 X0Y0	;Go to X0Y0
